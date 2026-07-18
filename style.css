@@ -1,0 +1,178 @@
+/* ============================================================
+   AW Webdesign — Axel Willockx
+   black / white / orange — Montserrat only
+   ============================================================ */
+:root{
+  --black:#0a0a0a;
+  --white:#f6f5f2;
+  --orange:#ff844f;
+  --line-l:rgba(10,10,10,.16);
+  --pad:clamp(1.5rem,5vw,5rem);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--black);font-family:Montserrat,sans-serif;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* lenis smooth-scroll housekeeping */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+img{display:block;max-width:100%}
+::selection{background:var(--orange);color:var(--white)}
+
+/* ---- loading screen: name reveals, travels to the hero, curtain lifts ---- */
+#loader{position:fixed;inset:0;z-index:60;background:var(--black);
+  display:grid;place-items:center;will-change:clip-path}
+.loader-name{color:var(--white);font-weight:600;text-transform:uppercase;
+  letter-spacing:-.02em;line-height:.96;font-size:clamp(1.8rem,4.5vw,3.4rem);
+  will-change:transform;transform-origin:top left}
+.loader-name .dot{color:var(--orange)}
+.loader-name .ll{display:block;overflow:hidden}
+.loader-name .li{display:inline-block;transform:translateY(112%);opacity:0;will-change:transform,opacity}
+body.is-loading{overflow:hidden}
+
+/* ---- fixed header: inverts over the black section (like the reference) ---- */
+header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:space-between;
+  align-items:center;padding:1.5rem var(--pad);color:#fff;mix-blend-mode:difference}
+.mark{height:26px;display:block}
+.mark polyline{stroke:currentColor;stroke-width:16;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nav{display:flex;gap:2.4rem;font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.nav a{position:relative;padding-bottom:.35rem}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:100%;
+  background:currentColor;transform:scaleX(0);transform-origin:right;
+  transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ---- hero (chosen option 1) — sticky, gets covered by the work section ---- */
+.hero{position:sticky;top:0;z-index:1;background:var(--white);height:100svh;
+  display:flex;flex-direction:column;overflow:hidden}
+.hero .hairline{height:1px;background:var(--line-l);margin-top:calc(1.5rem + 26px + 1.5rem)}
+.avail{display:flex;align-items:center;gap:.6rem;justify-content:flex-end;
+  padding:1.1rem var(--pad) 0;font-size:.78rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:#3d3b36}
+.avail-dot{width:9px;height:9px;border-radius:50%;background:#2fbf4f;flex:none;
+  animation:avail-pulse 2.2s ease-out infinite}
+@keyframes avail-pulse{
+  0%{box-shadow:0 0 0 0 rgba(47,191,79,.45)}
+  70%{box-shadow:0 0 0 9px rgba(47,191,79,0)}
+  100%{box-shadow:0 0 0 0 rgba(47,191,79,0)}
+}
+@media (prefers-reduced-motion:reduce){.avail-dot{animation:none}}
+.body{flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 var(--pad) clamp(1rem,3vh,2.5rem)}
+.name{font-weight:600;text-transform:uppercase;
+  letter-spacing:-.02em;line-height:.96;font-size:clamp(3.2rem,12.5vw,9rem);will-change:transform}
+.name .ch{display:inline-block;transition:font-weight 1.2s cubic-bezier(.22,1,.36,1)}
+.name .dot{color:var(--orange)}
+.under{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;gap:2rem}
+.under p{max-width:40ch;line-height:1.65;font-size:.92rem;color:#3d3b36}
+.down{width:56px;height:56px;border:1.5px solid var(--black);border-radius:50%;display:grid;
+  place-items:center;flex:none;color:var(--black);transition:background .3s,border-color .3s,color .3s}
+.down:hover{background:var(--orange);border-color:var(--orange);color:var(--white)}
+.down svg{width:18px}
+
+/* ============================================================
+   work showcase — 1:1 port of the reference mechanic:
+   normal-flow rows; image windows grow/shrink with scroll (scrub),
+   width bulges around viewport center, info fades in.
+   ============================================================ */
+.work-scroll-section{position:relative;z-index:2;background:var(--black)}
+.blank-section-gap{width:100%;height:12svh;background:var(--black)}
+
+.selected-work{display:flex;flex-direction:column;height:288svh} /* JS keeps this = n * maxH svh */
+.work-wrapper{display:flex;gap:18px;padding-top:1px;background:var(--black)}
+.work-img-wrapper{transform-origin:top;background:var(--black);flex-shrink:0;
+  display:flex;justify-content:center;align-items:center;
+  width:48vw;height:28svh;position:relative;overflow:hidden;cursor:pointer}
+/* fixed-size plate: the growing window only REVEALS it (clip, not resize) — key to buttery frames */
+.work-img-wrapper-2{aspect-ratio:1.5;z-index:3;width:720px;flex-shrink:0;position:relative;overflow:hidden}
+.work-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .4s ease;will-change:opacity}
+.work-image.on{opacity:1}
+.bg-img-overlay{position:absolute;inset:0;z-index:2;background:#000;opacity:.5}
+.bg-media{position:absolute;inset:0;z-index:1}
+
+.work-info-wrapper{display:flex;flex-direction:column;gap:24px;margin-top:18px;
+  padding-right:var(--pad);color:var(--white)}
+.work-title{display:flex;gap:10px;align-items:baseline;cursor:pointer;width:fit-content}
+.work-title .title{font-size:clamp(2rem,3.9vw,3.5rem);font-weight:300;text-transform:uppercase;
+  letter-spacing:.03em;line-height:1.1;position:relative}
+.work-title .title::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;
+  background:currentColor;transform:scaleX(0);transform-origin:100%;
+  transition:transform 1s cubic-bezier(.19,1,.22,1)}
+.work-title:hover .title::after{transform:scaleX(1);transform-origin:0}
+.bracket-button{font-size:.8rem;opacity:.7;padding-top:.2rem;letter-spacing:.08em;text-transform:uppercase}
+.work-detail{display:flex;flex-direction:column;gap:4px;opacity:.7;font-weight:300;
+  font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+
+/* ============================================================
+   about — heading mask reveal, word by word copy, portrait
+   curtain + parallax
+   ============================================================ */
+.about{position:relative;z-index:2;background:var(--white);color:var(--black);
+  padding:16vh var(--pad) 18vh}
+.about-title{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
+  font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1.08}
+.at-mask{display:inline-block;overflow:hidden;vertical-align:top}
+.at-line{display:inline-block;transform:translateY(112%);will-change:transform}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2.5rem,6vw,7rem);
+  align-items:center;margin-top:9vh}
+.about-copy{font-size:clamp(1.35rem,2.4vw,2.3rem);line-height:1.55;font-weight:300}
+.about-copy .w{opacity:.14;will-change:opacity}
+.about-copy .w.accent{color:var(--orange)}
+.about-media{margin:0;overflow:hidden;aspect-ratio:3/4;max-width:520px;width:100%;
+  justify-self:end;clip-path:inset(100% 0% 0% 0%);will-change:clip-path}
+.about-media img{width:100%;height:118%;object-fit:cover;object-position:50% 20%;will-change:transform}
+
+/* ============================================================
+   skillset — dark rows, chips, staggered entrances
+   ============================================================ */
+.skillset{position:relative;z-index:2;background:var(--black);color:var(--white);
+  padding:16vh var(--pad) 18vh}
+.sk-title{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
+  font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1.08}
+.sk-line{display:inline-block;transform:translateY(112%);will-change:transform}
+.sk-intro{margin-top:6vh;font-size:clamp(1.2rem,2vw,1.8rem);line-height:1.6;font-weight:300;
+  max-width:62ch;color:rgba(246,245,242,.85)}
+.sk-rows{margin-top:10vh}
+.sk-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);
+  padding:clamp(2.2rem,5vh,3.4rem) .25rem;border-top:1px solid rgba(246,245,242,.16);
+  align-items:start}
+.sk-row:last-child{border-bottom:1px solid rgba(246,245,242,.16)}
+.sk-row h3{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
+  font-size:clamp(1.5rem,2.9vw,2.7rem);line-height:1.1;
+  transition:color .35s,transform .45s cubic-bezier(.22,1,.36,1)}
+.sk-row:hover h3{color:var(--orange);transform:translateX(.4em)}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem}
+.chips span{border:1px solid rgba(246,245,242,.25);border-radius:999px;
+  padding:.5rem 1.1rem;font-size:.72rem;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;transition:border-color .3s,color .3s}
+.chips span:hover{border-color:var(--orange);color:var(--orange)}
+.sk-side p{margin-top:1.4rem;color:rgba(246,245,242,.65);line-height:1.75;
+  font-size:.92rem;max-width:48ch}
+
+.after{background:var(--black);color:rgba(246,245,242,.45);min-height:34svh;display:grid;
+  place-items:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  position:relative;z-index:2}
+
+/* ---- responsive (matches the reference's 1024px break) ---- */
+@media (max-width:1024px){
+  .about-grid{grid-template-columns:1fr;align-items:start}
+  .about-media{justify-self:start;max-width:440px}
+  .sk-row{grid-template-columns:1fr;gap:1.2rem}
+  .nav a:nth-child(3){display:none}
+  .work-wrapper{flex-direction:column;gap:12px}
+  .work-img-wrapper{width:100vw;height:25svh}
+  .work-img-wrapper-2{width:calc(100vw - 2*var(--pad));margin:0 var(--pad)}
+  .work-info-wrapper{margin-top:6px;padding:0 var(--pad)}
+  .under{flex-direction:column;align-items:flex-start}
+}
+@media (hover:none){.name .ch{transition:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .nav a::after,.down,.work-title .title::after{transition:none}
+  .work-image{transition:none}
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" fill="none">
+  <!-- AW monogram — thin continuous strokes, as in brand mark -->
+  <polyline points="18,224 96,16 174,224" stroke="#f4f4f2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="118,16 190,224 262,16 334,224 406,16" stroke="#f4f4f2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="212" y="285" text-anchor="middle" fill="#f4f4f2" font-family="Questrial, Century Gothic, sans-serif" font-size="34" letter-spacing="14">WEBDESIGN</text>
+</svg>
