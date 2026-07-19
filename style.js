@@ -109,19 +109,24 @@
   /* build crossfade galleries from data-images / data-bg */
   wrappers.forEach((w, wi) => {
     const inner = w.querySelector('.work-img-wrapper-2');
-    const ids = w.dataset.images.split(',');
-    ids.forEach((id, i) => {
+    // data-srcs = real project screenshots; data-images = picsum placeholder ids
+    const srcs = w.dataset.srcs
+      ? w.dataset.srcs.split(',').map(s => s.trim())
+      : w.dataset.images.split(',').map(id => `https://picsum.photos/id/${id.trim()}/1600/1067`);
+    srcs.forEach((src, i) => {
       const img = new Image();
-      img.src = `https://picsum.photos/id/${id.trim()}/1600/1067`;
+      img.src = src;
       img.alt = 'work image';
       img.className = 'work-image' + (i === 0 ? ' on' : '');
       img.loading = wi === 0 && i === 0 ? 'eager' : 'lazy';
       inner.appendChild(img);
     });
     w.querySelector('.bg-media').style.background = w.dataset.bg;
+    if (w.dataset.frame) inner.style.background = w.dataset.frame; // letterbox bars match the site's own bg
 
     /* gallery cycling: desktop cycles while hovered (1s); touch auto-cycles (2s, staggered) */
     const imgs = [...inner.querySelectorAll('.work-image')];
+    if (imgs.length < 2) return;
     let idx = 0, iv = null, to = null;
     const show = i => imgs.forEach((im, j) => im.classList.toggle('on', j === i));
     const small = matchMedia('(hover: none) and (pointer: coarse)').matches || innerWidth < 1025;
@@ -309,10 +314,18 @@
     });
   }
 
+  /* ----- more coming soon: soft rise when it enters ----- */
+  if (document.getElementById('workMore')) {
+    gsap.from('#workMore', {
+      y: 30, opacity: 0, duration: .9, ease: 'power4.out',
+      scrollTrigger: { trigger: '#workMore', start: 'top 88%' }
+    });
+  }
+
   /* ============================================================
      services — heading mask, intro rise, rows + button stagger in
      ============================================================ */
-  if (document.getElementById('svGrid')) {
+  if (document.getElementById('svAcc')) {
     gsap.to('.sv-line', {
       y: 0, duration: .9, ease: 'power4.out',
       scrollTrigger: { trigger: '.services', start: 'top 78%' }
@@ -321,15 +334,78 @@
       y: 36, opacity: 0, duration: 1, ease: 'power4.out',
       scrollTrigger: { trigger: '.sv-intro', start: 'top 82%' }
     });
-    // columns rise one after the other, then each column's list ticks in
-    const cols = gsap.utils.toArray('.sv-col');
-    const gridTl = gsap.timeline({
-      scrollTrigger: { trigger: '#svGrid', start: 'top 80%' }
+    gsap.from('.sv-panel', {
+      y: 54, opacity: 0, duration: .9, stagger: .14, ease: 'power4.out',
+      scrollTrigger: { trigger: '#svAcc', start: 'top 80%' }
     });
-    gridTl.from(cols, { y: 54, opacity: 0, duration: .9, stagger: .14, ease: 'power4.out' });
-    cols.forEach((col, i) => {
-      gridTl.from(col.querySelectorAll('.sv-list li'),
-        { x: -18, opacity: 0, duration: .45, stagger: .06, ease: 'power3.out' }, .35 + i * .14);
+    // one panel open at a time: hover opens on desktop, tap on touch
+    const panels = gsap.utils.toArray('.sv-panel');
+    const openPanel = p => panels.forEach(x => x.classList.toggle('open', x === p));
+    panels.forEach(p => {
+      if (!touch) p.addEventListener('pointerenter', () => openPanel(p));
+      p.addEventListener('click', e => {
+        if (!p.classList.contains('open')) { e.preventDefault(); openPanel(p); }
+      });
+    });
+  }
+
+  /* ============================================================
+     faq — accordion, one open at a time
+     ============================================================ */
+  if (document.getElementById('faqItems')) {
+    gsap.to('.fq-line', {
+      y: 0, duration: .9, ease: 'power4.out',
+      scrollTrigger: { trigger: '.faq', start: 'top 78%' }
+    });
+    const items = gsap.utils.toArray('.faq-item');
+    gsap.from(items, {
+      y: 30, opacity: 0, duration: .7, stagger: .09, ease: 'power4.out',
+      scrollTrigger: { trigger: '#faqItems', start: 'top 84%' }
+    });
+    items.forEach(item => {
+      const q = item.querySelector('.faq-q');
+      q.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('open');
+        items.forEach(x => {
+          x.classList.remove('open');
+          x.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) {
+          item.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  /* ============================================================
+     footer — entrances + contact form (opens the mail client)
+     ============================================================ */
+  const form = document.getElementById('contactForm');
+  if (form) {
+    gsap.to('.ft-line', {
+      y: 0, duration: 1, stagger: .1, ease: 'power4.out',
+      scrollTrigger: { trigger: '.footer', start: 'top 75%' }
+    });
+    gsap.from('.ft-form .ft-field, .ft-send, .ft-right > *', {
+      y: 26, opacity: 0, duration: .7, stagger: .07, ease: 'power3.out',
+      scrollTrigger: { trigger: '.ft-form', start: 'top 82%' }
+    });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const d = new FormData(form);
+      const name = (d.get('name') || '').toString().trim();
+      const email = (d.get('email') || '').toString().trim();
+      const msg = (d.get('message') || '').toString().trim();
+      const note = document.getElementById('formNote');
+      if (!name || !email || !msg) {
+        note.textContent = 'Please fill in your name, email and message.';
+        return;
+      }
+      const subject = encodeURIComponent(`Project request: ${d.get('package')} (${name})`);
+      const body = encodeURIComponent(`${msg}\n\nName: ${name}\nEmail: ${email}\nPackage: ${d.get('package')}`);
+      location.href = `mailto:axelwillockx@gmail.com?subject=${subject}&body=${body}`;
+      note.textContent = 'Your mail app is opening with the message ready to send.';
     });
   }
 

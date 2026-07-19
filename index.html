@@ -22,7 +22,7 @@
 
 <header>
   <a href="#" aria-label="AW home"><svg class="mark" viewBox="0 0 440 240"><polyline points="18,224 96,16 174,224"/><polyline points="118,16 190,224 262,16 334,224 406,16"/></svg></a>
-  <nav class="nav"><a href="#work">Work</a><a href="#about">About</a><a href="#skillset">Skillset</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
+  <nav class="nav"><a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav">
     <i></i><i></i>
   </button>
@@ -32,12 +32,11 @@
   <nav class="mnav-links">
     <a href="#work"><span>Work</span></a>
     <a href="#about"><span>About</span></a>
-    <a href="#skillset"><span>Skillset</span></a>
     <a href="#services"><span>Services</span></a>
     <a href="#contact"><span>Contact</span></a>
   </nav>
   <div class="mnav-foot">
-    <span>axelwillockx@gmail.com</span>
+    <span>axelwillockx@icloud.com</span>
     <span class="mnav-avail"><span class="avail-dot" aria-hidden="true"></span>Available for Projects</span>
   </div>
 </div>
@@ -62,7 +61,7 @@
   <div class="blank-section-gap"></div>
   <section class="selected-work" id="selectedWork" aria-label="Selected work">
 
-    <div class="work-wrapper" data-images="1027,838,21" data-bg="#6e0f0f">
+    <div class="work-wrapper" data-srcs="images/crombruggen.jpg" data-bg="#4a423a" data-frame="#efede8">
       <div class="work-img-wrapper">
         <div class="work-img-wrapper-2"></div>
         <div class="bg-img-overlay"></div>
@@ -76,7 +75,7 @@
       </div>
     </div>
 
-    <div class="work-wrapper" data-images="64,103,110" data-bg="#4a4a15">
+    <div class="work-wrapper" data-srcs="images/pictureperfect.jpg" data-bg="#6b6b66" data-frame="#101010">
       <div class="work-img-wrapper">
         <div class="work-img-wrapper-2"></div>
         <div class="bg-img-overlay"></div>
@@ -90,37 +89,9 @@
       </div>
     </div>
 
-    <div class="work-wrapper" data-images="180,2,119" data-bg="#14141f">
-      <div class="work-img-wrapper">
-        <div class="work-img-wrapper-2"></div>
-        <div class="bg-img-overlay"></div>
-        <div class="bg-media"></div>
-      </div>
-      <div class="work-info-wrapper">
-        <div class="work-title"><h2 class="title">Portfolio '26</h2><span class="bracket-button">[Open]</span></div>
-        <div class="work-detail">
-          <label class="tag">Nextjs, GSAP</label>
-          <label class="role">Role: web development</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-wrapper" data-images="1062,1015,1040" data-bg="#3f0d16">
-      <div class="work-img-wrapper">
-        <div class="work-img-wrapper-2"></div>
-        <div class="bg-img-overlay"></div>
-        <div class="bg-media"></div>
-      </div>
-      <div class="work-info-wrapper">
-        <div class="work-title"><h2 class="title">Lumen Folio</h2><span class="bracket-button">[Open]</span></div>
-        <div class="work-detail">
-          <label class="tag">Webflow, GSAP, scroll-effect</label>
-          <label class="role">Role: web design &amp; development</label>
-        </div>
-      </div>
-    </div>
-
   </section>
+
+  <div class="work-more" id="workMore"><span class="wm-dot" aria-hidden="true"></span>More coming soon</div>
 </div>
 
 <section class="about" id="about" aria-label="About me">
@@ -155,7 +126,7 @@
     <div class="sk-row">
       <h3>Tools</h3>
       <div class="sk-side">
-        <div class="chips"><span>Figma</span><span>Visual Studio Code</span><span>Vibe coding</span></div>
+        <div class="chips"><span>Figma</span><span>Visual Studio Code</span><span>Vibe coding</span><span>Open Source UI</span></div>
         <p>Designed in Figma, built in Visual Studio Code and accelerated with AI assisted vibe coding. Modern tools, fast iterations, sharp results.</p>
       </div>
     </div>
@@ -186,7 +157,6 @@
       <ul class="sv-list">
         <li>Up to six pages</li>
         <li>Custom animations</li>
-        <li>Edit content yourself</li>
         <li>SEO and analytics</li>
       </ul>
       <a class="btn-pkg" href="#contact">Choose Package</a>
@@ -206,7 +176,69 @@
   </div>
 </section>
 
-<div class="after" id="contact">Next: contact</div>
+<section class="faq" id="faq" aria-label="Frequently asked questions">
+  <h2 class="faq-title"><span class="at-mask"><span class="fq-line">FAQ</span></span></h2>
+  <div class="faq-items" id="faqItems">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How much does a website cost?<span class="faq-plus" aria-hidden="true">+</span></button>
+      <div class="faq-a"><div class="faq-a-in"><p>That depends on what you need. The packages above give a clear starting point and after one short call you get a fixed price, no surprises afterwards.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How long does it take?<span class="faq-plus" aria-hidden="true">+</span></button>
+      <div class="faq-a"><div class="faq-a-in"><p>A starter site is usually live within two weeks. A business site takes three to five weeks and a webshop four to six, depending on how fast content and feedback come in.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do you also handle hosting and domain?<span class="faq-plus" aria-hidden="true">+</span></button>
+      <div class="faq-a"><div class="faq-a-in"><p>Yes, completely. I buy and manage the domain and hosting myself, so you never deal with technical setup, renewals or downtime. You get one point of contact for everything.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What do you need from me to start?<span class="faq-plus" aria-hidden="true">+</span></button>
+      <div class="faq-a"><div class="faq-a-in"><p>Your logo, texts and photos if you have them, plus a few websites you like. Missing something? I help you with content and structure along the way.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" id="contact" aria-label="Contact">
+  <div class="ft-grid">
+    <div class="ft-left">
+      <h2 class="ft-title"><span class="at-mask"><span class="ft-line">Let's work</span></span><br><span class="at-mask"><span class="ft-line">together<span class="dot">.</span></span></span></h2>
+      <form class="ft-form" id="contactForm" novalidate>
+        <label class="ft-field"><span>Name</span><input type="text" name="name" autocomplete="name" required></label>
+        <label class="ft-field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+        <fieldset class="ft-pkgs">
+          <legend>Package</legend>
+          <label><input type="radio" name="package" value="Starter Site"><span>Starter Site</span></label>
+          <label><input type="radio" name="package" value="Business Site" checked><span>Business Site</span></label>
+          <label><input type="radio" name="package" value="Webshop"><span>Webshop</span></label>
+        </fieldset>
+        <label class="ft-field"><span>Message</span><textarea name="message" rows="4" required></textarea></label>
+        <button class="btn-pkg ft-send" type="submit">Send message</button>
+        <p class="ft-note" id="formNote"></p>
+      </form>
+    </div>
+    <div class="ft-right">
+      <a class="ft-mail" href="mailto:axelwillockx@icloud.com">axelwillockx@icloud.com</a>
+      <div class="ft-social">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 8.2h2.6V4.9h-2.9c-2.4 0-4 1.6-4 4v2.2H7.5v3.2h2.7v8h3.4v-8h2.8l.5-3.2h-3.3V9.3c0-.7.4-1.1 1-1.1Z" fill="currentColor"/></svg>
+        </a>
+      </div>
+      <p class="ft-avail"><span class="avail-dot" aria-hidden="true"></span>Available for Projects</p>
+      <p class="ft-loc">Belgium</p>
+      <nav class="ft-nav">
+        <a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <svg class="mark" viewBox="0 0 440 240" aria-label="AW"><polyline points="18,224 96,16 174,224"/><polyline points="118,16 190,224 262,16 334,224 406,16"/></svg>
+    <span>© 2026 AW Webdesign, Axel Willockx</span>
+    <a href="#" class="ft-top">Back to top ↑</a>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
