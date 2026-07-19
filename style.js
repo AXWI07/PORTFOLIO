@@ -237,6 +237,57 @@
   }
 
   /* ============================================================
+     mobile menu — curtain drops from the top, links rise through
+     masks, burger morphs into an X
+     ============================================================ */
+  const burger = document.getElementById('burger');
+  const mnav = document.getElementById('mnav');
+  if (burger && mnav) {
+    const links = mnav.querySelectorAll('.mnav-links a span');
+    const foot = mnav.querySelector('.mnav-foot');
+    gsap.set(foot, { opacity: 0, y: 18 });
+    const menuTl = gsap.timeline({
+      paused: true,
+      onStart: () => {
+        mnav.style.visibility = 'visible';
+        document.body.classList.add('menu-open');
+        if (lenis) lenis.stop();
+      },
+      onReverseComplete: () => {
+        mnav.style.visibility = 'hidden';
+        document.body.classList.remove('menu-open');
+        if (lenis) lenis.start();
+      }
+    });
+    menuTl
+      .to(mnav, { clipPath: 'inset(0% 0 0% 0)', duration: .7, ease: 'power4.inOut' })
+      .to(links, { y: 0, duration: .65, stagger: .07, ease: 'power4.out' }, '-=.25')
+      .to(foot, { opacity: 1, y: 0, duration: .5, ease: 'power3.out' }, '-=.4');
+
+    let menuOpen = false;
+    const setMenu = open => {
+      if (open === menuOpen) return;
+      menuOpen = open;
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mnav.setAttribute('aria-hidden', String(!open));
+      if (open) {
+        mnav.style.visibility = 'visible';
+        menuTl.timeScale(1).play();
+        mnav.querySelector('a').focus({ preventScroll: true });
+      } else {
+        menuTl.timeScale(1.4).reverse();
+        burger.focus({ preventScroll: true });
+      }
+    };
+    burger.addEventListener('click', () => setMenu(!menuOpen));
+    addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+    mnav.querySelectorAll('.mnav-links a').forEach(a =>
+      a.addEventListener('click', () => setMenu(false)));
+  }
+
+  /* ============================================================
      skillset — heading mask, intro rise, rows + chips stagger in
      ============================================================ */
   if (document.getElementById('skRows')) {
@@ -255,6 +306,30 @@
       tl.from(row, { y: 46, opacity: 0, duration: .85, ease: 'power4.out' })
         .from(row.querySelectorAll('.chips span'),
           { y: 14, opacity: 0, duration: .5, stagger: .07, ease: 'power3.out' }, '-=.45');
+    });
+  }
+
+  /* ============================================================
+     services — heading mask, intro rise, rows + button stagger in
+     ============================================================ */
+  if (document.getElementById('svGrid')) {
+    gsap.to('.sv-line', {
+      y: 0, duration: .9, ease: 'power4.out',
+      scrollTrigger: { trigger: '.services', start: 'top 78%' }
+    });
+    gsap.from('.sv-intro', {
+      y: 36, opacity: 0, duration: 1, ease: 'power4.out',
+      scrollTrigger: { trigger: '.sv-intro', start: 'top 82%' }
+    });
+    // columns rise one after the other, then each column's list ticks in
+    const cols = gsap.utils.toArray('.sv-col');
+    const gridTl = gsap.timeline({
+      scrollTrigger: { trigger: '#svGrid', start: 'top 80%' }
+    });
+    gridTl.from(cols, { y: 54, opacity: 0, duration: .9, stagger: .14, ease: 'power4.out' });
+    cols.forEach((col, i) => {
+      gridTl.from(col.querySelectorAll('.sv-list li'),
+        { x: -18, opacity: 0, duration: .45, stagger: .06, ease: 'power3.out' }, .35 + i * .14);
     });
   }
 

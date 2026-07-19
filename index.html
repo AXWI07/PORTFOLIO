@@ -22,7 +22,7 @@
 
 <header>
   <a href="#" aria-label="AW home"><svg class="mark" viewBox="0 0 440 240"><polyline points="18,224 96,16 174,224"/><polyline points="118,16 190,224 262,16 334,224 406,16"/></svg></a>
-  <nav class="nav"><a href="#work">Work</a><a href="#about">About</a><a href="#skillset">Skillset</a><a href="#contact">Contact</a></nav>
+  <nav class="nav"><a href="#work">Work</a><a href="#about">About</a><a href="#skillset">Skillset</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav">
     <i></i><i></i>
   </button>
@@ -33,6 +33,7 @@
     <a href="#work"><span>Work</span></a>
     <a href="#about"><span>About</span></a>
     <a href="#skillset"><span>Skillset</span></a>
+    <a href="#services"><span>Services</span></a>
     <a href="#contact"><span>Contact</span></a>
   </nav>
   <div class="mnav-foot">
@@ -161,7 +162,51 @@
   </div>
 </section>
 
-<div class="after" id="contact">Next: services &amp; contact</div>
+<section class="services" id="services" aria-label="Services">
+  <h2 class="sv-title"><span class="at-mask"><span class="sv-line">Services</span></span></h2>
+  <p class="sv-intro">Three clear packages, no vague quotes. Pick the one that fits and we start this week.</p>
+
+  <div class="sv-grid" id="svGrid">
+    <article class="sv-col">
+      <h3>Starter Site</h3>
+      <p class="sv-desc">A sharp one page site that tells your story and gets you found. Perfect for freelancers and starting businesses.</p>
+      <ul class="sv-list">
+        <li>One page design and build</li>
+        <li>Responsive on every device</li>
+        <li>Contact form and SEO basics</li>
+        <li>Live within two weeks</li>
+      </ul>
+      <a class="btn-pkg" href="#contact">Choose Package</a>
+    </article>
+
+    <article class="sv-col featured">
+      <span class="sv-flag">Most chosen</span>
+      <h3>Business Site</h3>
+      <p class="sv-desc">A complete brand site with smooth animations and room to grow. For businesses that want their website to actually sell.</p>
+      <ul class="sv-list">
+        <li>Up to six pages</li>
+        <li>Custom animations</li>
+        <li>Edit content yourself</li>
+        <li>SEO and analytics</li>
+      </ul>
+      <a class="btn-pkg" href="#contact">Choose Package</a>
+    </article>
+
+    <article class="sv-col">
+      <h3>Webshop</h3>
+      <p class="sv-desc">A custom webshop that feels like a flagship store, not a template. Set up and ready to sell.</p>
+      <ul class="sv-list">
+        <li>Custom store design</li>
+        <li>Products and payments set up</li>
+        <li>Order and shipping flow</li>
+        <li>Training included</li>
+      </ul>
+      <a class="btn-pkg" href="#contact">Choose Package</a>
+    </article>
+  </div>
+</section>
+
+<div class="after" id="contact">Next: contact</div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>

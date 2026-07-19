@@ -46,6 +46,36 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
   transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .nav a:hover::after{transform:scaleX(1);transform-origin:left}
 
+/* ---- hamburger (mobile) : two lines morph into an X ---- */
+.burger{display:none;position:relative;z-index:45;width:44px;height:44px;
+  background:none;border:0;cursor:pointer;padding:0;color:inherit}
+.burger i{position:absolute;left:6px;right:6px;top:50%;height:1.5px;background:currentColor;
+  transition:transform .45s cubic-bezier(.66,0,.34,1)}
+.burger i:first-child{transform:translateY(-5px)}
+.burger i:last-child{transform:translateY(5px)}
+.burger.open i:first-child{transform:translateY(0) rotate(45deg)}
+.burger.open i:last-child{transform:translateY(0) rotate(-45deg)}
+
+/* ---- full screen mobile menu : curtain drop + masked links ---- */
+.mnav{position:fixed;inset:0;z-index:30;background:var(--black);color:var(--white);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 var(--pad) clamp(2rem,6vh,4rem);
+  clip-path:inset(0 0 100% 0);visibility:hidden;will-change:clip-path}
+.mnav-links{display:flex;flex-direction:column;gap:.4rem;margin-bottom:auto;
+  padding-top:calc(1.5rem + 26px + 3rem)}
+.mnav-links a{display:block;overflow:hidden;width:fit-content;
+  font-weight:300;text-transform:uppercase;letter-spacing:.03em;
+  font-size:clamp(2.4rem,10vw,4.2rem);line-height:1.16}
+.mnav-links a span{display:inline-block;transform:translateY(112%);will-change:transform;
+  transition:color .3s}
+.mnav-links a:hover span,.mnav-links a:focus-visible span{color:var(--orange)}
+.mnav-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding-top:1.4rem;border-top:1px solid rgba(246,245,242,.16);
+  font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(246,245,242,.7)}
+.mnav-avail{display:inline-flex;align-items:center;gap:.5rem}
+body.menu-open{overflow:hidden}
+
 /* ---- hero (chosen option 1) — sticky, gets covered by the work section ---- */
 .hero{position:sticky;top:0;z-index:1;background:var(--white);height:100svh;
   display:flex;flex-direction:column;overflow:hidden}
@@ -130,29 +160,64 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
 /* ============================================================
    skillset — dark rows, chips, staggered entrances
    ============================================================ */
-.skillset{position:relative;z-index:2;background:var(--black);color:var(--white);
+.skillset{position:relative;z-index:2;background:var(--white);color:var(--black);
   padding:16vh var(--pad) 18vh}
 .sk-title{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
   font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1.08}
 .sk-line{display:inline-block;transform:translateY(112%);will-change:transform}
 .sk-intro{margin-top:6vh;font-size:clamp(1.2rem,2vw,1.8rem);line-height:1.6;font-weight:300;
-  max-width:62ch;color:rgba(246,245,242,.85)}
+  max-width:62ch;color:rgba(10,10,10,.85)}
 .sk-rows{margin-top:10vh}
 .sk-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);
-  padding:clamp(2.2rem,5vh,3.4rem) .25rem;border-top:1px solid rgba(246,245,242,.16);
+  padding:clamp(2.2rem,5vh,3.4rem) .25rem;border-top:1px solid var(--line-l);
   align-items:start}
-.sk-row:last-child{border-bottom:1px solid rgba(246,245,242,.16)}
+.sk-row:last-child{border-bottom:1px solid var(--line-l)}
 .sk-row h3{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
   font-size:clamp(1.5rem,2.9vw,2.7rem);line-height:1.1;
   transition:color .35s,transform .45s cubic-bezier(.22,1,.36,1)}
 .sk-row:hover h3{color:var(--orange);transform:translateX(.4em)}
 .chips{display:flex;flex-wrap:wrap;gap:.6rem}
-.chips span{border:1px solid rgba(246,245,242,.25);border-radius:999px;
+.chips span{border:1px solid rgba(10,10,10,.3);border-radius:999px;
   padding:.5rem 1.1rem;font-size:.72rem;font-weight:500;letter-spacing:.12em;
   text-transform:uppercase;transition:border-color .3s,color .3s}
 .chips span:hover{border-color:var(--orange);color:var(--orange)}
-.sk-side p{margin-top:1.4rem;color:rgba(246,245,242,.65);line-height:1.75;
+.sk-side p{margin-top:1.4rem;color:rgba(10,10,10,.65);line-height:1.75;
   font-size:.92rem;max-width:48ch}
+
+/* ============================================================
+   services — black rows, package buttons
+   ============================================================ */
+.services{position:relative;z-index:2;background:var(--black);color:var(--white);
+  padding:16vh var(--pad) 18vh}
+.sv-title{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
+  font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1.08}
+.sv-line{display:inline-block;transform:translateY(112%);will-change:transform}
+.sv-intro{margin-top:6vh;font-size:clamp(1.2rem,2vw,1.8rem);line-height:1.6;font-weight:300;
+  max-width:62ch;color:rgba(246,245,242,.85)}
+.sv-grid{margin-top:10vh;display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(246,245,242,.16)}
+.sv-col{position:relative;display:flex;flex-direction:column;
+  padding:clamp(2.2rem,5vh,3.4rem) clamp(1.4rem,2.6vw,2.6rem) clamp(2.4rem,5vh,3.4rem)}
+.sv-col + .sv-col{border-left:1px solid rgba(246,245,242,.16)}
+.sv-col:first-child{padding-left:.25rem}
+.sv-col h3{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
+  font-size:clamp(1.4rem,2.2vw,2.1rem);line-height:1.1;transition:color .35s}
+.sv-col:hover h3{color:var(--orange)}
+.sv-flag{position:absolute;top:clamp(1rem,2.4vh,1.6rem);right:clamp(1.4rem,2.6vw,2.6rem);
+  color:var(--orange);font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.sv-desc{margin-top:1.4rem;color:rgba(246,245,242,.65);line-height:1.7;font-size:.9rem}
+.sv-list{list-style:none;margin:2rem 0 2.6rem;display:flex;flex-direction:column;gap:.85rem}
+.sv-list li{position:relative;padding-left:1.4rem;font-size:.86rem;line-height:1.5;
+  color:rgba(246,245,242,.8)}
+.sv-list li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;
+  border-radius:50%;background:var(--orange)}
+.btn-pkg{display:inline-block;margin-top:auto;width:fit-content;
+  border:1px solid rgba(246,245,242,.35);border-radius:999px;padding:1rem 2rem;
+  font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--white);
+  transition:background .35s,border-color .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1)}
+.btn-pkg:hover{background:var(--orange);border-color:var(--orange);transform:translateY(-2px)}
+.sv-col.featured .btn-pkg{background:var(--orange);border-color:var(--orange)}
+.sv-col.featured .btn-pkg:hover{background:var(--white);border-color:var(--white);color:var(--black)}
 
 .after{background:var(--black);color:rgba(246,245,242,.45);min-height:34svh;display:grid;
   place-items:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
@@ -163,7 +228,12 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
   .about-grid{grid-template-columns:1fr;align-items:start}
   .about-media{justify-self:start;max-width:440px}
   .sk-row{grid-template-columns:1fr;gap:1.2rem}
-  .nav a:nth-child(3){display:none}
+  .sv-grid{grid-template-columns:1fr}
+  .sv-col + .sv-col{border-left:0;border-top:1px solid rgba(246,245,242,.16)}
+  .sv-col{padding-left:.25rem;padding-right:.25rem}
+  .sv-flag{right:.25rem}
+  .nav{display:none}
+  .burger{display:block}
   .work-wrapper{flex-direction:column;gap:12px}
   .work-img-wrapper{width:100vw;height:25svh}
   .work-img-wrapper-2{width:calc(100vw - 2*var(--pad));margin:0 var(--pad)}
