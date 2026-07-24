@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crombruggen — Case Study · AW Webdesign</title>
+<meta name="description" content="Case study: how AW Webdesign designed and built the Crombruggen website — an editorial one-pager with a camera-aperture intro and a distortion-mask hero.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+
+<header class="cs-head">
+  <a href="index.html" aria-label="AW home"><svg class="mark" viewBox="0 0 440 240"><polyline points="18,224 96,16 174,224"/><polyline points="118,16 190,224 262,16 334,224 406,16"/></svg></a>
+  <a class="cs-back" href="index.html#work">← All work</a>
+</header>
+
+<section class="cs-hero">
+  <span class="cs-eyebrow">Case Study</span>
+  <h1 class="cs-name" data-name>Crombruggen<span class="dot">.</span></h1>
+  <p class="cs-sub">A quiet, editorial one-pager for a Belgian estate, built around a camera-aperture intro and a distortion-mask hero that reacts as you move.</p>
+  <div class="cs-meta">
+    <div><span>Year</span>2026</div>
+    <div><span>Role</span>Design &amp; Development</div>
+    <div><span>Stack</span>HTML, CSS, JavaScript, GSAP</div>
+  </div>
+  <a class="cs-visit" href="https://www.crombruggen.be" target="_blank" rel="noopener">Visit website <i>↗</i></a>
+</section>
+
+<figure class="cs-shot cs-shot-lead" data-reveal>
+  <img src="images/crombruggen.jpg" alt="Crombruggen website — hero" style="object-position:50% 25%">
+</figure>
+
+<article class="cs-body">
+  <section class="cs-block" data-reveal>
+    <h2>The brief</h2>
+    <p>Crombruggen needed a website that felt as calm and considered as the place itself. No loud sales pitch, no template look. The goal was a single, flowing page that reads like a printed magazine and leaves visitors with one clear feeling before they reach out.</p>
+  </section>
+
+  <section class="cs-block" data-reveal>
+    <h2>The look</h2>
+    <p>I built the design around a soft, paper-toned palette and a single expressive display type. Generous whitespace does most of the work: images breathe, headlines get room, and nothing competes for attention. The result is restraint that reads as quality.</p>
+  </section>
+
+  <figure class="cs-shot" data-reveal>
+    <img src="images/crombruggen.jpg" alt="Crombruggen website — detail" style="object-position:50% 80%">
+    <figcaption>The masked hero — imagery revealed through an organic, torn-paper shape.</figcaption>
+  </figure>
+
+  <section class="cs-block" data-reveal>
+    <h2>Motion</h2>
+    <p>The page opens with a camera aperture that irises open into the hero, tying the whole site to the idea of framing a view. From there, a distortion mask lets the landscape bleed through a soft edge that shifts subtly with the cursor. Every animation is scroll-linked and smoothed, so the movement feels intentional rather than decorative.</p>
+  </section>
+
+  <figure class="cs-shot" data-reveal>
+    <img src="images/crombruggen.jpg" alt="Crombruggen website — landscape section" style="object-position:50% 55%">
+  </figure>
+
+  <section class="cs-block" data-reveal>
+    <h2>The result</h2>
+    <p>A site that feels premium the moment it loads, loads fast because it is hand-coded, and works on every screen. It gives Crombruggen a digital presence that matches the estate: understated, confident and memorable.</p>
+  </section>
+</article>
+
+<section class="cs-cta" data-reveal>
+  <h2>See it live</h2>
+  <a class="cs-visit big" href="https://www.crombruggen.be" target="_blank" rel="noopener">Visit Crombruggen <i>↗</i></a>
+</section>
+
+<footer class="cs-foot">
+  <a class="cs-back" href="index.html#work">← Back to all work</a>
+  <span>© 2026 AW Webdesign</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="case.js"></script>
+</body>
+</html>

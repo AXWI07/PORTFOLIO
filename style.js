@@ -314,14 +314,6 @@
     });
   }
 
-  /* ----- more coming soon: soft rise when it enters ----- */
-  if (document.getElementById('workMore')) {
-    gsap.from('#workMore', {
-      y: 30, opacity: 0, duration: .9, ease: 'power4.out',
-      scrollTrigger: { trigger: '#workMore', start: 'top 88%' }
-    });
-  }
-
   /* ============================================================
      services — heading mask, intro rise, rows + button stagger in
      ============================================================ */
@@ -344,6 +336,14 @@
         { x: -18, opacity: 0, duration: .45, stagger: .06, ease: 'power3.out' }, .35 + i * .14);
     });
   }
+
+  /* clicking a "Choose Package" button pre-selects that package in the footer form */
+  document.querySelectorAll('.btn-pkg[data-package]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const radio = document.querySelector(`.ft-pkgs input[value="${btn.dataset.package}"]`);
+      if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
+  });
 
   /* ============================================================
      faq — accordion, one open at a time

@@ -1,0 +1,76 @@
+/* ============================================================
+   AW Webdesign — case study pages (white theme, blend header)
+   ============================================================ */
+:root{--black:#0a0a0a;--white:#f6f5f2;--orange:#ff844f;--line-l:rgba(10,10,10,.16);
+  --muted:rgba(10,10,10,.6);--pad:clamp(1.5rem,5vw,5rem)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:Montserrat,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--orange);color:var(--white)}
+
+/* header — same transparency as index.html: fixed + mix-blend-mode difference,
+   so it inverts to black over the white page and white over dark images */
+.cs-head{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:space-between;
+  align-items:center;padding:1.5rem var(--pad);color:#fff;mix-blend-mode:difference}
+.mark{height:24px}
+.mark polyline{stroke:currentColor;stroke-width:16;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cs-back{position:relative;font-size:.74rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  padding-bottom:.3rem}
+.cs-back::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1.5px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.cs-back:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* hero */
+.cs-hero{padding:20vh var(--pad) 6vh;max-width:1100px}
+.cs-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--orange)}
+.cs-name{margin-top:1.4rem;font-weight:600;text-transform:uppercase;letter-spacing:-.02em;line-height:.98;
+  font-size:clamp(2.6rem,9vw,7rem)}
+.cs-name .dot{color:var(--orange)}
+.cs-name .ch{display:inline-block}
+.cs-sub{margin-top:2rem;max-width:52ch;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:300;
+  line-height:1.6;color:rgba(10,10,10,.72)}
+.cs-meta{margin-top:3rem;display:flex;flex-wrap:wrap;gap:2.5rem 4rem;border-top:1px solid var(--line-l);
+  padding-top:2.2rem}
+.cs-meta div{display:flex;flex-direction:column;gap:.5rem;font-size:.95rem}
+.cs-meta span{font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(10,10,10,.45)}
+
+/* visit button */
+.cs-visit{display:inline-flex;align-items:center;gap:.7rem;margin-top:2.8rem;
+  border:1px solid rgba(10,10,10,.3);border-radius:999px;padding:1.1rem 2.2rem;
+  font-size:.76rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--black);
+  transition:background .35s,border-color .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1)}
+.cs-visit i{font-style:normal;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.cs-visit:hover{background:var(--orange);border-color:var(--orange);color:var(--black);transform:translateY(-2px)}
+.cs-visit:hover i{transform:translate(3px,-3px)}
+.cs-visit.big{margin-top:2.4rem;padding:1.3rem 2.8rem;font-size:.82rem}
+
+/* image blocks */
+.cs-shot{margin:6vh auto;width:min(1200px,100%);padding:0 var(--pad)}
+.cs-shot img{width:100%;height:clamp(320px,60vh,660px);object-fit:cover;border-radius:2px;
+  background:#e6e4df}
+.cs-shot-lead{margin-top:2vh}
+.cs-shot figcaption{margin-top:1rem;font-size:.8rem;letter-spacing:.06em;color:rgba(10,10,10,.45)}
+
+/* body text */
+.cs-body{max-width:820px;margin:0 auto;padding:4vh var(--pad)}
+.cs-block{padding:5vh 0}
+.cs-block h2{font-weight:300;text-transform:uppercase;letter-spacing:.05em;
+  font-size:clamp(1.3rem,2.4vw,2rem);color:var(--black)}
+.cs-block p{margin-top:1.4rem;font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.8;color:rgba(10,10,10,.68)}
+
+/* end cta */
+.cs-cta{text-align:center;padding:12vh var(--pad) 14vh;border-top:1px solid var(--line-l)}
+.cs-cta h2{font-weight:300;text-transform:uppercase;letter-spacing:.05em;
+  font-size:clamp(1.6rem,3.4vw,2.8rem)}
+
+/* footer */
+.cs-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  padding:2.4rem var(--pad);border-top:1px solid var(--line-l);
+  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,10,.45)}
+.cs-foot .cs-back{color:var(--black)}
+
+[data-reveal]{will-change:transform,opacity}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
