@@ -288,7 +288,7 @@
     };
     burger.addEventListener('click', () => setMenu(!menuOpen));
     addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-    mnav.querySelectorAll('.mnav-links a').forEach(a =>
+    mnav.querySelectorAll('a').forEach(a =>
       a.addEventListener('click', () => setMenu(false)));
   }
 
@@ -325,7 +325,7 @@
   /* ============================================================
      services — heading mask, intro rise, rows + button stagger in
      ============================================================ */
-  if (document.getElementById('svAcc')) {
+  if (document.getElementById('svGrid')) {
     gsap.to('.sv-line', {
       y: 0, duration: .9, ease: 'power4.out',
       scrollTrigger: { trigger: '.services', start: 'top 78%' }
@@ -334,18 +334,14 @@
       y: 36, opacity: 0, duration: 1, ease: 'power4.out',
       scrollTrigger: { trigger: '.sv-intro', start: 'top 82%' }
     });
-    gsap.from('.sv-panel', {
-      y: 54, opacity: 0, duration: .9, stagger: .14, ease: 'power4.out',
-      scrollTrigger: { trigger: '#svAcc', start: 'top 80%' }
+    const cols = gsap.utils.toArray('.sv-col');
+    const gridTl = gsap.timeline({
+      scrollTrigger: { trigger: '#svGrid', start: 'top 80%' }
     });
-    // one panel open at a time: hover opens on desktop, tap on touch
-    const panels = gsap.utils.toArray('.sv-panel');
-    const openPanel = p => panels.forEach(x => x.classList.toggle('open', x === p));
-    panels.forEach(p => {
-      if (!touch) p.addEventListener('pointerenter', () => openPanel(p));
-      p.addEventListener('click', e => {
-        if (!p.classList.contains('open')) { e.preventDefault(); openPanel(p); }
-      });
+    gridTl.from(cols, { y: 54, opacity: 0, duration: .9, stagger: .14, ease: 'power4.out' });
+    cols.forEach((col, i) => {
+      gridTl.from(col.querySelectorAll('.sv-list li'),
+        { x: -18, opacity: 0, duration: .45, stagger: .06, ease: 'power3.out' }, .35 + i * .14);
     });
   }
 
@@ -383,14 +379,29 @@
      ============================================================ */
   const form = document.getElementById('contactForm');
   if (form) {
+    // heading rises through its mask
     gsap.to('.ft-line', {
       y: 0, duration: 1, stagger: .1, ease: 'power4.out',
       scrollTrigger: { trigger: '.footer', start: 'top 75%' }
     });
-    gsap.from('.ft-form .ft-field, .ft-send, .ft-right > *', {
-      y: 26, opacity: 0, duration: .7, stagger: .07, ease: 'power3.out',
-      scrollTrigger: { trigger: '.ft-form', start: 'top 82%' }
+    // form + info column rise and fade, staggered
+    gsap.from('.ft-form .ft-field, .ft-pkgs, .ft-send, .ft-right > *', {
+      y: 30, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out',
+      scrollTrigger: { trigger: '.ft-form', start: 'top 85%' }
     });
+    // bottom bar slips up
+    gsap.from('.ft-bottom > *', {
+      y: 20, opacity: 0, duration: .6, stagger: .08, ease: 'power3.out',
+      scrollTrigger: { trigger: '.ft-bottom', start: 'top 95%' }
+    });
+    // giant LET'S TALK watermark drifts sideways + up as the footer scrolls through (overlapping parallax)
+    const wm = document.getElementById('ftWatermark');
+    if (wm) {
+      gsap.fromTo(wm, { xPercent: -60, yPercent: 30 }, {
+        xPercent: -40, yPercent: 0, ease: 'none',
+        scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true }
+      });
+    }
     form.addEventListener('submit', e => {
       e.preventDefault();
       const d = new FormData(form);
@@ -404,7 +415,7 @@
       }
       const subject = encodeURIComponent(`Project request: ${d.get('package')} (${name})`);
       const body = encodeURIComponent(`${msg}\n\nName: ${name}\nEmail: ${email}\nPackage: ${d.get('package')}`);
-      location.href = `mailto:axelwillockx@gmail.com?subject=${subject}&body=${body}`;
+      location.href = `mailto:axelwillockx@icloud.com?subject=${subject}&body=${body}`;
       note.textContent = 'Your mail app is opening with the message ready to send.';
     });
   }

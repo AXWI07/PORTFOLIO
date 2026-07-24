@@ -32,12 +32,12 @@
   <nav class="mnav-links">
     <a href="#work"><span>Work</span></a>
     <a href="#about"><span>About</span></a>
+    <a href="#skillset"><span>Skillset</span></a>
     <a href="#services"><span>Services</span></a>
     <a href="#contact"><span>Contact</span></a>
   </nav>
   <div class="mnav-foot">
-    <span>axelwillockx@icloud.com</span>
-    <span class="mnav-avail"><span class="avail-dot" aria-hidden="true"></span>Available for Projects</span>
+    <a class="mnav-contact" href="#contact">Contact Me</a>
   </div>
 </div>
 
@@ -139,6 +139,7 @@
 
   <div class="sv-grid" id="svGrid">
     <article class="sv-col">
+      <span class="sv-num">01</span>
       <h3>Starter Site</h3>
       <p class="sv-desc">A sharp one page site that tells your story and gets you found. Perfect for freelancers and starting businesses.</p>
       <ul class="sv-list">
@@ -150,8 +151,8 @@
       <a class="btn-pkg" href="#contact">Choose Package</a>
     </article>
 
-    <article class="sv-col featured">
-      <span class="sv-flag">Most chosen</span>
+    <article class="sv-col">
+      <span class="sv-num">02</span>
       <h3>Business Site</h3>
       <p class="sv-desc">A complete brand site with smooth animations and room to grow. For businesses that want their website to actually sell.</p>
       <ul class="sv-list">
@@ -163,13 +164,13 @@
     </article>
 
     <article class="sv-col">
+      <span class="sv-num">03</span>
       <h3>Webshop</h3>
       <p class="sv-desc">A custom webshop that feels like a flagship store, not a template. Set up and ready to sell.</p>
       <ul class="sv-list">
         <li>Custom store design</li>
         <li>Products and payments set up</li>
         <li>Order and shipping flow</li>
-        <li>Training included</li>
       </ul>
       <a class="btn-pkg" href="#contact">Choose Package</a>
     </article>
@@ -199,6 +200,7 @@
 </section>
 
 <footer class="footer" id="contact" aria-label="Contact">
+  <div class="ft-watermark" id="ftWatermark" aria-hidden="true">LET'S TALK</div>
   <div class="ft-grid">
     <div class="ft-left">
       <h2 class="ft-title"><span class="at-mask"><span class="ft-line">Let's work</span></span><br><span class="at-mask"><span class="ft-line">together<span class="dot">.</span></span></span></h2>
@@ -212,12 +214,13 @@
           <label><input type="radio" name="package" value="Webshop"><span>Webshop</span></label>
         </fieldset>
         <label class="ft-field"><span>Message</span><textarea name="message" rows="4" required></textarea></label>
-        <button class="btn-pkg ft-send" type="submit">Send message</button>
+        <button class="btn-pkg ft-send" type="submit">Start Your Project</button>
         <p class="ft-note" id="formNote"></p>
       </form>
     </div>
     <div class="ft-right">
       <a class="ft-mail" href="mailto:axelwillockx@icloud.com">axelwillockx@icloud.com</a>
+      <a class="ft-phone" href="tel:+32470000000">+32 470 00 00 00</a>
       <div class="ft-social">
         <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>
@@ -226,17 +229,19 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 8.2h2.6V4.9h-2.9c-2.4 0-4 1.6-4 4v2.2H7.5v3.2h2.7v8h3.4v-8h2.8l.5-3.2h-3.3V9.3c0-.7.4-1.1 1-1.1Z" fill="currentColor"/></svg>
         </a>
       </div>
-      <p class="ft-avail"><span class="avail-dot" aria-hidden="true"></span>Available for Projects</p>
       <p class="ft-loc">Belgium</p>
       <nav class="ft-nav">
-        <a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#faq">FAQ</a>
+        <a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a>
       </nav>
     </div>
   </div>
   <div class="ft-bottom">
     <svg class="mark" viewBox="0 0 440 240" aria-label="AW"><polyline points="18,224 96,16 174,224"/><polyline points="118,16 190,224 262,16 334,224 406,16"/></svg>
     <span>© 2026 AW Webdesign, Axel Willockx</span>
-    <a href="#" class="ft-top">Back to top ↑</a>
+    <nav class="ft-legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="#" class="ft-top">Back to top ↑</a>
+    </nav>
   </div>
 </footer>
 

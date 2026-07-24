@@ -39,7 +39,8 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
   align-items:center;padding:1.5rem var(--pad);color:#fff;mix-blend-mode:difference}
 .mark{height:26px;display:block}
 .mark polyline{stroke:currentColor;stroke-width:16;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.nav{display:flex;gap:2.4rem;font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+/* hamburger is the nav at every width now; text nav retired */
+.nav{display:none}
 .nav a{position:relative;padding-bottom:.35rem}
 .nav a::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:100%;
   background:currentColor;transform:scaleX(0);transform-origin:right;
@@ -47,7 +48,7 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
 .nav a:hover::after{transform:scaleX(1);transform-origin:left}
 
 /* ---- hamburger (mobile) : two lines morph into an X ---- */
-.burger{display:none;position:relative;z-index:45;width:44px;height:44px;
+.burger{display:block;position:relative;z-index:45;width:44px;height:44px;
   background:none;border:0;cursor:pointer;padding:0;color:inherit}
 .burger i{position:absolute;left:6px;right:6px;top:50%;height:1.5px;background:currentColor;
   transition:transform .45s cubic-bezier(.66,0,.34,1)}
@@ -69,11 +70,14 @@ header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:s
 .mnav-links a span{display:inline-block;transform:translateY(112%);will-change:transform;
   transition:color .3s}
 .mnav-links a:hover span,.mnav-links a:focus-visible span{color:var(--orange)}
-.mnav-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  padding-top:1.4rem;border-top:1px solid rgba(246,245,242,.16);
-  font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(246,245,242,.7)}
-.mnav-avail{display:inline-flex;align-items:center;gap:.5rem}
+.mnav-foot{padding-top:1.8rem;border-top:1px solid rgba(246,245,242,.16)}
+.mnav-contact{display:inline-flex;align-items:center;gap:.7rem;
+  border:1px solid rgba(246,245,242,.35);border-radius:999px;padding:1.1rem 2.4rem;
+  font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--white);
+  transition:background .35s,border-color .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1)}
+.mnav-contact::after{content:"→";transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.mnav-contact:hover{background:var(--orange);border-color:var(--orange);color:var(--black)}
+.mnav-contact:hover::after{transform:translateX(4px)}
 body.menu-open{overflow:hidden}
 
 /* ---- hero (chosen option 1) — sticky, gets covered by the work section ---- */
@@ -213,40 +217,21 @@ body.menu-open{overflow:hidden}
 .sv-col{position:relative;isolation:isolate;display:flex;flex-direction:column;
   padding:clamp(2.2rem,5vh,3.4rem) clamp(1.4rem,2.6vw,2.6rem) clamp(2.4rem,5vh,3.4rem)}
 .sv-col + .sv-col{border-left:1px solid rgba(246,245,242,.16)}
-/* hover: the column floods white from the bottom, text flips dark */
-.sv-col::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--white);
-  transform:scaleY(0);transform-origin:bottom;
-  transition:transform .55s cubic-bezier(.22,1,.36,1)}
-.sv-col:hover::before{transform:scaleY(1)}
-.sv-col.featured::before{background:var(--orange)}
+/* simplistic black & white: number, title, dash list, outline button */
+.sv-num{font-size:.75rem;letter-spacing:.24em;color:rgba(246,245,242,.4);margin-bottom:1.6rem}
 .sv-col h3{font-weight:300;text-transform:uppercase;letter-spacing:.04em;
-  font-size:clamp(1.4rem,2.2vw,2.1rem);line-height:1.1;transition:color .35s}
-.sv-col:hover h3{color:var(--orange)}
-.sv-col.featured:hover h3{color:var(--black)}
-.sv-flag{position:absolute;top:clamp(1rem,2.4vh,1.6rem);right:clamp(1.4rem,2.6vw,2.6rem);
-  color:var(--orange);font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  transition:color .35s}
-.sv-col.featured:hover .sv-flag{color:var(--black)}
-.sv-desc{margin-top:1.4rem;color:rgba(246,245,242,.65);line-height:1.7;font-size:.9rem;
-  transition:color .35s}
-.sv-col:hover .sv-desc{color:rgba(10,10,10,.75)}
-.sv-list{list-style:none;margin:2rem 0 2.6rem;display:flex;flex-direction:column;gap:.85rem}
-.sv-list li{position:relative;padding-left:1.4rem;font-size:.86rem;line-height:1.5;
-  color:rgba(246,245,242,.8);transition:color .35s}
-.sv-col:hover .sv-list li{color:rgba(10,10,10,.85)}
-.sv-list li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;
-  border-radius:50%;background:var(--orange)}
-.sv-col.featured:hover .sv-list li::before{background:var(--black)}
+  font-size:clamp(1.4rem,2.2vw,2.1rem);line-height:1.1}
+.sv-desc{margin-top:1.3rem;color:rgba(246,245,242,.6);line-height:1.7;font-size:.9rem}
+.sv-list{list-style:none;margin:1.9rem 0 2.5rem;display:flex;flex-direction:column;gap:.8rem}
+.sv-list li{position:relative;padding-left:1.5rem;font-size:.86rem;line-height:1.5;
+  color:rgba(246,245,242,.82)}
+.sv-list li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;
+  background:rgba(246,245,242,.7)}
 .btn-pkg{display:inline-block;margin-top:auto;width:fit-content;
   border:1px solid rgba(246,245,242,.35);border-radius:999px;padding:1rem 2rem;
   font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--white);
   transition:background .35s,border-color .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1)}
-.btn-pkg:hover{background:var(--orange);border-color:var(--orange);transform:translateY(-2px)}
-.sv-col:hover .btn-pkg{border-color:rgba(10,10,10,.45);color:var(--black)}
-.sv-col:hover .btn-pkg:hover{background:var(--black);border-color:var(--black);color:var(--white)}
-.sv-col.featured .btn-pkg{background:var(--orange);border-color:var(--orange)}
-.sv-col.featured:hover .btn-pkg{background:var(--black);border-color:var(--black);color:var(--white)}
-.sv-col.featured:hover .btn-pkg:hover{background:var(--white);border-color:var(--white);color:var(--black)}
+.btn-pkg:hover{background:var(--orange);border-color:var(--orange);color:var(--black);transform:translateY(-2px)}
 
 /* ============================================================
    faq — white accordion
@@ -275,9 +260,14 @@ body.menu-open{overflow:hidden}
 /* ============================================================
    footer — contact form
    ============================================================ */
-.footer{position:relative;z-index:2;background:var(--black);color:var(--white);
+.footer{position:relative;z-index:2;overflow:hidden;background:var(--black);color:var(--white);
   padding:16vh var(--pad) 2.4rem}
-.ft-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(3rem,7vw,8rem)}
+.ft-watermark{position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);
+  font-weight:700;text-transform:uppercase;white-space:nowrap;
+  font-size:min(22vw,320px);line-height:.8;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1px rgba(246,245,242,.09);
+  pointer-events:none;z-index:0;will-change:transform}
+.ft-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(3rem,7vw,8rem)}
 .ft-title{font-weight:300;text-transform:uppercase;letter-spacing:.03em;
   font-size:clamp(2rem,4.6vw,4.2rem);line-height:1.06}
 .ft-line{display:inline-block;transform:translateY(112%);will-change:transform}
@@ -316,6 +306,9 @@ body.menu-open{overflow:hidden}
 .ft-mail{font-weight:300;font-size:clamp(1.1rem,1.8vw,1.5rem);width:fit-content;
   border-bottom:1.5px solid var(--orange);padding-bottom:.4rem;transition:color .3s}
 .ft-mail:hover{color:var(--orange)}
+.ft-phone{font-weight:300;font-size:clamp(1rem,1.6vw,1.3rem);width:fit-content;
+  color:rgba(246,245,242,.8);transition:color .3s}
+.ft-phone:hover{color:var(--orange)}
 .ft-avail{display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;color:rgba(246,245,242,.7)}
 .ft-loc{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,245,242,.45)}
@@ -323,10 +316,13 @@ body.menu-open{overflow:hidden}
   font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
 .ft-nav a{width:fit-content;transition:color .3s}
 .ft-nav a:hover{color:var(--orange)}
-.ft-bottom{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+.ft-bottom{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:1rem;
   margin-top:12vh;padding-top:1.6rem;border-top:1px solid rgba(246,245,242,.16);
   font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,245,242,.45)}
 .ft-bottom .mark{height:20px;color:var(--white)}
+.ft-legal{display:flex;gap:1.6rem;align-items:center}
+.ft-legal a{transition:color .3s}
+.ft-legal a:hover{color:var(--orange)}
 .ft-top{transition:color .3s}
 .ft-top:hover{color:var(--orange)}
 
