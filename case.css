@@ -43,14 +43,15 @@ img{display:block;max-width:100%}
   border:1px solid rgba(10,10,10,.3);border-radius:999px;padding:1.1rem 2.2rem;
   font-size:.76rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--black);
   transition:background .35s,border-color .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1)}
-.cs-visit i{font-style:normal;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.cs-visit i{font-style:normal;display:flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.cs-visit i svg{width:1em;height:1em;display:block}
 .cs-visit:hover{background:var(--orange);border-color:var(--orange);color:var(--black);transform:translateY(-2px)}
 .cs-visit:hover i{transform:translate(3px,-3px)}
 .cs-visit.big{margin-top:2.4rem;padding:1.3rem 2.8rem;font-size:.82rem}
 
 /* image blocks */
 .cs-shot{margin:6vh auto;width:min(1200px,100%);padding:0 var(--pad)}
-.cs-shot img{width:100%;height:clamp(320px,60vh,660px);object-fit:cover;border-radius:2px;
+.cs-shot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:2px;
   background:#e6e4df}
 .cs-shot-lead{margin-top:2vh}
 .cs-shot figcaption{margin-top:1rem;font-size:.8rem;letter-spacing:.06em;color:rgba(10,10,10,.45)}
