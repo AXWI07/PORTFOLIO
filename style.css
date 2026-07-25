@@ -330,10 +330,12 @@ body.menu-open{overflow:hidden}
   .ft-bottom{flex-wrap:wrap}
   .nav{display:none}
   .burger{display:block}
-  .work-wrapper{flex-direction:column;gap:12px}
+  .work-wrapper{flex-direction:column;gap:12px;margin-bottom:clamp(4rem,11svh,7rem)}
   .work-img-wrapper{width:100vw;height:25svh}
   .work-img-wrapper-2{width:calc(100vw - 2*var(--pad));margin:0 var(--pad)}
   .work-info-wrapper{margin-top:6px;padding:0 var(--pad)}
+  /* no hover on touch, so the arrow stays visible like it does on hover on desktop */
+  .work-arrow{opacity:1;transform:none}
   .under{flex-direction:column;align-items:flex-start}
 }
 @media (hover:none){.name .ch{transition:none}}
