@@ -51,8 +51,8 @@ img{display:block;max-width:100%}
 
 /* image blocks */
 .cs-shot{margin:6vh auto;width:min(1200px,100%);padding:0 var(--pad)}
-.cs-shot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:2px;
-  background:#e6e4df}
+/* screenshots keep their own proportions so nothing gets cropped */
+.cs-shot img{width:100%;height:auto;border-radius:2px;background:#e6e4df}
 .cs-shot-lead{margin-top:2vh}
 .cs-shot figcaption{margin-top:1rem;font-size:.8rem;letter-spacing:.06em;color:rgba(10,10,10,.45)}
 

@@ -49,11 +49,6 @@
     });
   });
 
-  /* subtle parallax inside each image frame */
-  gsap.utils.toArray('.cs-shot img').forEach(img => {
-    gsap.fromTo(img, { yPercent: -6 }, {
-      yPercent: 6, ease: 'none',
-      scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true }
-    });
-  });
+  /* note: no image parallax — the shots are shown uncropped, so shifting them
+     inside the frame would leave gaps. The reveal above carries the motion. */
 })();
