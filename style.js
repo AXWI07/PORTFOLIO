@@ -275,7 +275,7 @@
       menuOpen = open;
       burger.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', String(open));
-      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      burger.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
       mnav.setAttribute('aria-hidden', String(!open));
       if (open) {
         mnav.style.visibility = 'visible';
@@ -410,13 +410,13 @@
       const msg = (d.get('message') || '').toString().trim();
       const note = document.getElementById('formNote');
       if (!name || !email || !msg) {
-        note.textContent = 'Please fill in your name, email and message.';
+        note.textContent = 'Vul je naam, e-mail en bericht in.';
         return;
       }
-      const subject = encodeURIComponent(`Project request: ${d.get('package')} (${name})`);
-      const body = encodeURIComponent(`${msg}\n\nName: ${name}\nEmail: ${email}\nPackage: ${d.get('package')}`);
+      const subject = encodeURIComponent(`Projectaanvraag: ${d.get('package')} (${name})`);
+      const body = encodeURIComponent(`${msg}\n\nNaam: ${name}\nE-mail: ${email}\nPakket: ${d.get('package')}`);
       location.href = `mailto:axelwillockx@icloud.com?subject=${subject}&body=${body}`;
-      note.textContent = 'Your mail app is opening with the message ready to send.';
+      note.textContent = 'Je mailprogramma opent met het bericht klaar om te verzenden.';
     });
   }
 
