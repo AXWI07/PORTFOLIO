@@ -437,6 +437,20 @@
       const word = document.getElementById('loaderName');
       const target = document.querySelector('[data-name]');
       gsap.set(loader, { clipPath: 'inset(0% 0% 0% 0%)' });
+
+      // The word now renders at the hero's full font size (same text, font, weight,
+      // spacing) so it maps onto the headline at scale 1. We START it scaled DOWN and
+      // grow it back to 1 — every step is a down-scale of the native raster, so the
+      // letters stay sharp instead of magnifying a cached bitmap.
+      const held = 0.42;                                   // display size of the intro
+      const n = word.getBoundingClientRect();              // natural (scale 1) box
+      const nLeft = (innerWidth - n.width) / 2;            // grid-centred top-left
+      const nTop = (innerHeight - n.height) / 2;
+      gsap.set(word, {
+        transformOrigin: 'top left', force3D: false, scale: held,
+        x: (1 - held) * n.width / 2, y: (1 - held) * n.height / 2   // keep it centred
+      });
+
       const tl = gsap.timeline({
         onComplete: () => {
           loader.remove();
@@ -446,16 +460,17 @@
       });
       tl.to(word.querySelectorAll('.li'), { y: 0, opacity: 1, duration: .8, stagger: .08, ease: 'power3.inOut' })
         .add(() => {
-          // FLIP: same text, same font — a uniform scale from the height ratio lands the
-          // glyphs exactly on the hero headline (element boxes differ, text does not).
-          const a = word.getBoundingClientRect();
+          // grow to scale 1 and land the word's top-left exactly on the hero headline
           const b = target.getBoundingClientRect();
           gsap.to(word, {
-            x: b.left - a.left, y: b.top - a.top, scale: b.height / a.height,
-            duration: 1, ease: 'power2.inOut'
+            x: b.left - nLeft, y: b.top - nTop, scale: 1,
+            duration: 1, ease: 'power2.inOut', force3D: false
           });
         }, '+=1.3')
-        .to(loader, { clipPath: 'inset(0% 0% 100% 0%)', duration: .9, ease: 'power3.inOut' }, '+=1.2');
+        .to(loader, {
+          clipPath: 'inset(0% 0% 100% 0%)', duration: .9, ease: 'power3.inOut',
+          onStart() { loader.style.willChange = 'clip-path'; }   // promote only for the curtain
+        }, '+=1.2');
     };
     if (document.fonts && document.fonts.load) {
       Promise.all([document.fonts.load('600 1rem Montserrat'), document.fonts.ready])

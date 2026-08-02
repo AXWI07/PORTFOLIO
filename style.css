@@ -25,10 +25,12 @@ img{display:block;max-width:100%}
 
 /* ---- loading screen: name reveals, travels to the hero, curtain lifts ---- */
 #loader{position:fixed;inset:0;z-index:60;background:var(--black);
-  display:grid;place-items:center;will-change:clip-path}
+  display:grid;place-items:center}
+/* rendered at the hero's full size so the loader only ever scales DOWN (never
+   magnifies a cached bitmap) — keeps the letters razor sharp while they grow */
 .loader-name{color:var(--white);font-weight:600;text-transform:uppercase;
-  letter-spacing:-.02em;line-height:.96;font-size:clamp(1.8rem,4.5vw,3.4rem);
-  will-change:transform;transform-origin:top left}
+  letter-spacing:-.02em;line-height:.96;font-size:clamp(3.2rem,12.5vw,9rem);
+  transform-origin:top left;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .loader-name .dot{color:var(--orange)}
 .loader-name .ll{display:block;overflow:hidden}
 .loader-name .li{display:inline-block;transform:translateY(112%);opacity:0;will-change:transform,opacity}
