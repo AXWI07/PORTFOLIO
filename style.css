@@ -39,7 +39,7 @@ body.is-loading{overflow:hidden}
 /* ---- fixed header: inverts over the black section (like the reference) ---- */
 header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:space-between;
   align-items:center;padding:1.5rem var(--pad);color:#fff;mix-blend-mode:difference}
-.mark{height:26px;display:block}
+.mark{height:20px;display:block}
 .mark polyline{stroke:currentColor;stroke-width:16;fill:none;stroke-linecap:round;stroke-linejoin:round}
 /* hamburger is the nav at every width now; text nav retired */
 .nav{display:none}
