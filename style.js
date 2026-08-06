@@ -102,6 +102,18 @@
     });
   }
 
+  /* solid header background once scrolled past the top (stops titles colliding with the logo) */
+  {
+    const siteHeader = document.querySelector('header');
+    if (siteHeader) {
+      const onScroll = () => siteHeader.classList.toggle('scrolled',
+        (window.scrollY || document.documentElement.scrollTop || 0) > 40);
+      addEventListener('scroll', onScroll, { passive: true });
+      if (lenis) lenis.on('scroll', onScroll);
+      onScroll();
+    }
+  }
+
   const section = document.getElementById('selectedWork');
   const wrappers = gsap.utils.toArray('.work-wrapper');
   const n = wrappers.length;
@@ -402,21 +414,38 @@
         scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true }
       });
     }
-    form.addEventListener('submit', e => {
+    // submit to the PHP mailer via fetch, show inline success/error (no page reload)
+    const note = document.getElementById('formNote');
+    const btn = form.querySelector('.ft-send');
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      const d = new FormData(form);
-      const name = (d.get('name') || '').toString().trim();
-      const email = (d.get('email') || '').toString().trim();
-      const msg = (d.get('message') || '').toString().trim();
-      const note = document.getElementById('formNote');
-      if (!name || !email || !msg) {
-        note.textContent = 'Vul je naam, e-mail en bericht in.';
-        return;
+      note.classList.remove('is-ok', 'is-error');
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Versturen…';
+      note.textContent = '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          form.reset();
+          note.textContent = data.message || 'Bedankt! Je bericht is verzonden, ik neem snel contact op.';
+          note.classList.add('is-ok');
+        } else {
+          note.textContent = (data && data.message) || 'Er ging iets mis. Probeer opnieuw of mail me rechtstreeks.';
+          note.classList.add('is-error');
+        }
+      } catch {
+        note.textContent = 'Geen verbinding. Probeer opnieuw of mail me rechtstreeks.';
+        note.classList.add('is-error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
       }
-      const subject = encodeURIComponent(`Projectaanvraag: ${d.get('package')} (${name})`);
-      const body = encodeURIComponent(`${msg}\n\nNaam: ${name}\nE-mail: ${email}\nPakket: ${d.get('package')}`);
-      location.href = `mailto:axelwillockx@icloud.com?subject=${subject}&body=${body}`;
-      note.textContent = 'Je mailprogramma opent met het bericht klaar om te verzenden.';
     });
   }
 
