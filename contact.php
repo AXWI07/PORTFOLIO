@@ -18,7 +18,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 /* ---------------- config ---------------- */
-$RECIPIENT = 'info@awwebdesign.be';
+$RECIPIENT = 'aw.webdesign@icloud.com';
 $FROM      = 'no-reply@awwebdesign.be';
 $FROM_NAME = 'AW Webdesign';
 /* ---------------------------------------- */
