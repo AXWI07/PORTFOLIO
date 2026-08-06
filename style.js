@@ -81,38 +81,31 @@
   let lenis = null;
   if (wantsLenis && typeof Lenis !== 'undefined') {
     document.documentElement.style.scrollBehavior = 'auto'; // Lenis drives the scroll itself
-    // duration-based easing: every wheel notch glides ~1.2s (easeOutExpo) instead of
-    // stepping — makes notched mouse wheels feel as smooth as a touchpad
+    // lerp mode: wheel notches accumulate into one target and the scroll interpolates
+    // toward it every frame. Continuous on a notched mouse — duration mode turned each
+    // notch into a separate glide, which read as the page "moving in parts".
     lenis = new Lenis({
       autoRaf: false,
-      duration: 1.2,
-      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
       smoothWheel: true,
       wheelMultiplier: 1
     });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
-    // route anchor links through Lenis so they glide instead of jumping
+    // route anchor links through Lenis so they glide instead of jumping.
+    // lenis.start() first: the mobile menu calls lenis.stop() while open, and a
+    // stopped Lenis ignores scrollTo — so we resume it on the same click, then scroll.
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) { e.preventDefault(); lenis.scrollTo(target, { duration: 1.4 }); }
+        const href = a.getAttribute('href');
+        if (href === '#') { e.preventDefault(); lenis.start(); lenis.scrollTo(0, { duration: 1.2 }); return; }
+        const target = document.querySelector(href);
+        if (target) { e.preventDefault(); lenis.start(); lenis.scrollTo(target, { duration: 1.4 }); }
       });
     });
   }
 
-  /* solid header background once scrolled past the top (stops titles colliding with the logo) */
-  {
-    const siteHeader = document.querySelector('header');
-    if (siteHeader) {
-      const onScroll = () => siteHeader.classList.toggle('scrolled',
-        (window.scrollY || document.documentElement.scrollTop || 0) > 40);
-      addEventListener('scroll', onScroll, { passive: true });
-      if (lenis) lenis.on('scroll', onScroll);
-      onScroll();
-    }
-  }
 
   const section = document.getElementById('selectedWork');
   const wrappers = gsap.utils.toArray('.work-wrapper');
